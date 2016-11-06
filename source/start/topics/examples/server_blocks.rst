@@ -12,42 +12,39 @@ Two Server Blocks, Serving Static Files
 
 .. code-block:: nginx
 
-    http {
-      index index.html;
+#    http {                          #nginx: [emerg] "http" directive is not allowed here
+#      index index.html;
 
       server {
         server_name www.domain1.com;
-        access_log logs/domain1.access.log main;
+        access_log logs/domain1.access.log;
 
         root /var/www/domain1.com/htdocs;
       }
 
       server {
         server_name www.domain2.com;
-        access_log  logs/domain2.access.log main;
+        access_log  logs/domain2.access.log;
 
         root /var/www/domain2.com/htdocs;
       }
-    }
+#    }
 
 A Default "Catch All" Server Block
 ----------------------------------
 
 .. code-block:: nginx
 
-    http {
-      index index.html;
-
-      server {
+server {
         listen 80 default_server;
         server_name _; # This is just an invalid value which will never trigger on a real hostname.
-        access_log logs/default.access.log main;
+        access_log logs/default.access.log;
 
         server_name_in_redirect off;
 
         root  /var/www/default/htdocs;
       }
-    }
+
 
 Wildcard Subdomains in a Parent Folder
 --------------------------------------
